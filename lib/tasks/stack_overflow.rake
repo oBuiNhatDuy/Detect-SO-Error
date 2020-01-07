@@ -13,12 +13,11 @@ namespace :stack_overflow do
       question_page = agent.get(question_link)
       question_text = question_page.search('//*[@id="question"]/div/div[2]/div[1]').text.gsub(/[\r\n]/, "")
       error_result = parser.parse question_text
-      if error_result.length > 2
+      if error_result.length > 4
         body_message = "[To:3821319]\nNew question to edit " + question_link
         result = HTTParty.post("https://api.chatwork.com/v2/rooms/" + ENV["chatwork_room_to_push_notifications"] + "/messages",
           headers: { "X-ChatWorkToken": ENV["x_chatwork_token"] },
           body: { "body": body_message } )
-      else
       end
     end
   end
